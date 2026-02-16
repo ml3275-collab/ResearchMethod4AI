@@ -139,8 +139,8 @@ class VGG_Pre:
         # Write your code below:
         probs = self.decision_function(X)
         uncertainty = np.abs(probs.flatten() - 0.5)
-        inds = np.argsort(uncertainty)
-        return inds[:k]
+        inds = np.argsort(uncertainty)[:k]
+        return inds
 
     # Below is for A5
     def output_grad(self, inputs):
