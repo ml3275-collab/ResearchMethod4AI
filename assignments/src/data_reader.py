@@ -14,6 +14,13 @@ def load_scut(file = "../data/train.csv"):
         return x
 
     data = pd.read_csv(file)
+
+    # -----------------------
+    # Remove rows with missing filenames or ratings
+    data = data.dropna(subset=["Filename", "Rating"])
+    # -----------------------
+
+
     # extract sensitive attributes (Male=1, Female=0, Asian=1, Caucasian=0)
     sex = []
     race = []
