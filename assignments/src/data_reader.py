@@ -17,7 +17,7 @@ def load_scut(file = "../data/train.csv"):
 
     # -----------------------
     # Remove rows with missing filenames or ratings
-    data = data.dropna(subset=["Filename", "Rating"])
+    #data = data.dropna(subset=["Filename", "Rating"])
     # -----------------------
 
 
