@@ -1,5 +1,5 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 def Reweighing(X, Y, A):
     # X: independent variables (2-d pd.DataFrame)
@@ -9,6 +9,12 @@ def Reweighing(X, Y, A):
     #         sample_weight(a,y) = P(y)*P(a)/P(a,y)
 
     n = len(Y)
+
+    # Normalize A to always be a list
+    if isinstance(A, str):
+        A = [A]
+    else:
+        A = list(A)
 
     # Combine multiple sensitive attributes into a single composite tuple key
     a_values = X[A].apply(tuple, axis=1) if len(A) > 1 else X[A[0]]
