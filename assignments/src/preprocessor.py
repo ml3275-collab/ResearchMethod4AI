@@ -1,5 +1,6 @@
 from collections import Counter
 import numpy as np
+import pandas as pd
 
 def Reweighing(X, Y, A):
     # X: independent variables (2-d pd.DataFrame)
