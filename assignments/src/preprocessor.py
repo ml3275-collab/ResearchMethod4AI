@@ -2,13 +2,17 @@ import numpy as np
 import pandas as pd
 
 def Reweighing(X, Y, A):
-    # X: independent variables (2-d pd.DataFrame)
+    # X: independent variables (2-d pd.DataFrame or dict)
     # Y: the dependent variable (1-d np.array, binary y in {0,1})
     # A: a list/array of the names of the sensitive attributes with binary values
     # Return: sample_weight, an array of float weight for every data point
     #         sample_weight(a,y) = P(y)*P(a)/P(a,y)
 
     n = len(Y)
+
+    # Ensure X is a DataFrame
+    if not isinstance(X, pd.DataFrame):
+        X = pd.DataFrame(X)
 
     # Normalize A to always be a list
     if isinstance(A, str):
