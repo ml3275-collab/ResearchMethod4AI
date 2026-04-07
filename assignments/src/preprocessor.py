@@ -3,15 +3,14 @@ import numpy as np
 import pandas as pd
 
 def Reweighing(X, Y, A):
-    # X: independent variables (2-d pd.DataFrame)
-    # Y: the dependent variable (1-d np.array, binary y in {0,1})
-    # A: a list/array of the names of the sensitive attributes with binary values
-    # Return: sample_weight, an array of float weight for every data point
-    #         sample_weight(a,y) = P(y)*P(a)/P(a,y)
-    # Write your code below:
-    df = pd.DataFrame({'a': X[A], 'y': Y})
+    # Use X[A] to get the columns, then ensure it's treated as a Series/1D for the dict
+    # If A is a list with one element, .squeeze() converts the DataFrame to a Series
+    sensitive_col = X[A].squeeze()
+    
+    df = pd.DataFrame({'a': sensitive_col, 'y': Y})
     n = len(df)
     
+    # ... rest of the code stays the same ...
     sample_weight = np.zeros(n)
     
     p_y = df['y'].value_counts(normalize=True).to_dict()
@@ -23,8 +22,7 @@ def Reweighing(X, Y, A):
         mask = (df['a'] == val_a) & (df['y'] == val_y)
         sample_weight[mask] = weight
 
-    # Rescale the sum of sample weights to len(y) before returning it
-    sample_weight = sample_weight * len(Y) / sum(sample_weight)
+    sample_weight = sample_weight * len(Y) / np.sum(sample_weight)
     return sample_weight
 
 
