@@ -147,8 +147,9 @@ class VGG_Pre:
         # inputs: tf.Variable([one input data point])
         # Return grad: gradients from every input node to the output of self.model(X) (numpy.array)
         
+        inputs = tf.Variable(inputs, dtype=tf.float32)
+        
         with tf.GradientTape() as tape:
-            tape.watch(inputs)
             output = self.model(inputs, training=False)
         
         grad = tape.gradient(output, inputs)
